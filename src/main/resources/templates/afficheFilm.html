@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Liste des films</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+
+<div class="container mt-4 pt-4">
+    <h1 class="mb-3 text-center">Liste des films</h1>
+    <div class="d-flex w-100 mb-3">
+        <form action="/film/search" method="post" class="w-75 d-flex justify-content-center">
+            <div class="d-flex w-75">
+                <input name="titre" id="titre" type="text" placeholder="Chercher un film" class="form-control me-2">
+                <input type="submit" class="btn btn-success" value="Cherchez">
+            </div>
+        </form>
+        <form action="/film/cat" method="post">
+            <div>
+                <select  name="idcat" id="idcat" onchange="submit()" class="form-control">
+                    <option value="0" th:selected="${idcat == 0 || idcat == null}">Toutes les catégories</option>
+                    <option th:each="c: ${categories}" th:text="${c.nom}" th:value="${c.id}" th:id="${c.id}" th:selected="${c.id == idcat}">
+                    </option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <table class="table table-hover">
+        <tr style="background-color: #cccccc;">
+            <th>#</th>
+            <th>TITRE</th>
+            <th>DESCRIPTION</th>
+            <th>ANNEE PARUTION</th>
+            <th>CATEGORIE</th>
+            <th colspan="2">LES ACTEURS</th>
+            <th colspan="3" style="text-align: center">ACTION</th>
+        </tr>
+        <tr th:each="f: ${films}">
+            <td th:text="${f.id}"></td>
+            <td th:text="${f.titre}"></td>
+            <td th:text="${f.description}"></td>
+            <td th:text="${f.anneeparution}"></td>
+            <td th:text="${f.categorie.nom}"></td>
+            <td>
+                <div th:each="acteur : ${f.acteurs}" th:text="${acteur.prenom}"></div><br>
+            </td>
+            <td>
+                <div th:each="acteur : ${f.acteurs}" th:text="${acteur.nom}"></div><br>
+            </td>
+            <td>
+                <form th:action="@{/film/delete/{id} (id=${f.id})}" th:method="delete">
+                    <input type="submit" value="Supprimer" class="btn btn-outline-danger" onclick="return confirm('Voulez vous vraiment supprimer cet film ?')">
+                </form>
+            </td>
+            <td>
+                <a th:href="@{/film/update/{id} (id=${f.id})}" class="btn btn-outline-primary" >Modifier</a>
+            </td>
+            <td>
+                <a th:href="@{/film/details/{id} (id=${f.id})}" class="btn btn-outline-warning">Détails</a>
+            </td>
+        </tr>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a href="http://localhost:8080/film/new" class="btn btn-success mt-5"> Ajouter un film</a>
+    </div>
+</div>
+
+</body>
+</html>

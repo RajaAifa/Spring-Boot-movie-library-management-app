@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Ajouter un acteur</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">Saisir un nouveau Acteur</h1>
+    <form action="/acteur/add" method="post">
+        <p>
+            <label for="nom" class="form-label">Nom: </label>
+            <input type="text" name="nom" id="nom" class="form-control" required>
+        </p>
+        <p>
+            <label for="prenom" class="form-label">Prenom: </label>
+            <input type="text" name="prenom" id="prenom" class="form-control" required>
+        </p>
+        <p><input type="submit" class="btn btn-outline-primary" value="Ajouter"></p>
+    </form>
+</div>
+</body>
+</html>

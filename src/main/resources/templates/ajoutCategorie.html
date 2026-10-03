@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Ajouter une categorie</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">Saisir une nouvelle Categorie</h1>
+    <form action="/categorie/add" method="post">
+        <p>
+            <label for="nom" class="form-label">Nom: </label>
+            <input type="text" name="nom" id="nom" class="form-control" required>
+        </p>
+        <p><input type="submit" class="btn btn-outline-primary" value="Ajouter"></p>
+    </form>
+</div>
+</body>
+</html>

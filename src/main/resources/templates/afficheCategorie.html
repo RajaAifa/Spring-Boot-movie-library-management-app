@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Liste des categories</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Liste des categories</h1>
+    <table class="table table-hover">
+        <tr style="background-color: #cccccc;">
+            <th>#</th>
+            <th>Nom</th>
+            <th colspan="2" style="text-align: center">ACTION</th>
+        </tr>
+        <tr th:each="c: ${categories}" th:hidden="${c.nom == 'Sans Categorie'}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.nom}"></td>
+            <td class="text-center">
+                <form th:action="@{/categorie/delete/{id} (id=${c.id})}" th:method="delete" class="justify-content-center">
+                    <input type="submit" value="Supprimer" class="btn btn-outline-danger" onclick="return confirm('Voulez vous vraiment supprimer cette categorie ?')">
+                </form>
+            </td>
+            <td class="text-center">
+                <a th:href="@{/categorie/update/{id} (id=${c.id})}" class="btn btn-outline-primary" >Modifier</a>
+            </td>
+        </tr>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a href="http://localhost:8080/categorie/new" class="btn btn-success mt-5"> Ajouter une categorie</a>
+    </div>
+</div>
+
+</body>
+</html>

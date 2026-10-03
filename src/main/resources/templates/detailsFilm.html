@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Détails du Film</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3" th:text="${film.titre}"></h1>
+
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img th:if="${film.photo != null and not #strings.isEmpty(film.photo)}" th:src="${'/photos/' + film.photo}"
+                 alt="Affiche du film" class="img-fluid rounded shadow" style="max-height: 400px;">
+            <img th:unless="${film.photo != null and not #strings.isEmpty(film.photo)}" th:src="${'/photos/no-image.jpg'}"
+                 alt="Affiche du film" class="img-fluid rounded shadow" style="max-height: 400px;">
+        </div>
+        <div class="col-md-8">
+            <h3>Description</h3>
+            <p class="border p-3 bg-light" th:text="${film.description}"></p>
+
+            <h4>Année de parution:</h4>
+            <p class="fw-bold" th:text="${film.anneeparution}"></p>
+
+            <h4>Catégorie:</h4>
+            <p class="badge bg-primary fs-6" th:text="${film.categorie.nom}"></p>
+
+            <h4>Acteurs:</h4>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="acteur : ${film.acteurs}" th:text="${acteur.nom + ' ' + acteur.prenom}"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-4 text-center">
+        <a href="/film/all" class="btn btn-outline-secondary">Retour à la liste</a>
+    </div>
+</div>
+</body>
+</html>

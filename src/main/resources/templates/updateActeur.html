@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Modifier un acteur</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">Modifier l'Acteur</h1>
+    <form action="/acteur/modifier" method="post">
+        <p>
+            <input type="text" name="id" id="id" class="form-control" th:value="${acteur.id}" required hidden="hidden">
+        </p>
+        <p>
+            <label for="nom" class="form-label">nom: </label>
+            <input type="text" name="nom" id="nom" class="form-control" th:value="${acteur.nom}" required>
+        </p>
+        <p>
+            <label for="prenom" class="form-label">prenom: </label>
+            <input type="text" name="prenom" id="prenom" class="form-control" th:value="${acteur.prenom}" required>
+        </p>
+        <p><input type="submit" class="btn btn-outline-primary" value="Modifier"></p>
+    </form>
+</div>
+</body>
+</html>

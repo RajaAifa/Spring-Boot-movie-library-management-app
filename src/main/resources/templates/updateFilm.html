@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Modifier un film</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">Modifier le Film</h1>
+    <form action="/film/modifier" method="post" enctype="multipart/form-data">
+        <p>
+            <input type="text" name="id" id="id" class="form-control" th:value="${film.id}" required hidden="hidden">
+        </p>
+        <p>
+            <label for="titre" class="form-label">Titre du film: </label>
+            <input type="text" name="titre" id="titre" class="form-control" th:value="${film.titre}" required pattern="[A-ZÀ-Ÿ][a-zA-ZÀ-ÿ0-9\s]+" title="Le titre doit commencer par une majuscule">
+        </p>
+        <p>
+            <label for="description" class="form-label">Description: </label>
+            <textarea rows="5" class="form-control" name="description" id="description" th:text="${film.description}"></textarea>
+        </p>
+        <p>
+            <label for="annee" class="form-Label">Année parution: </label>
+            <input type="number" name="anneeparution" id="annee" class="form-control" th:value="${film.anneeparution}" min="1940" required th:max="${currentYear}" th:attr="title='L\'année doit être comprise entre 1940 et ' + ${currentYear}">
+        </p>
+        <p>
+            <label for="categorie" class="form-label">Categorie: </label>
+            <select name="categorie" class="form-select" id="categorie" >
+                <option th:each="cat: ${categories}" th:value="${cat.id}" th:selected="${cat.id == film.categorie.id}" th:text="${cat.nom}"></option>
+            </select>
+        </p>
+        <p>
+            <label for="acteurs">Acteurs</label>
+            <select id="acteurs" name="acteurs" class="form-select" multiple required>
+                <option th:each="acteur : ${acteurs}" th:value="${acteur.id}" th:selected="${selectedActorIds.contains(acteur.id)}" th:text="${acteur.nom + ' ' + acteur.prenom}"></option>
+            </select>
+        </p>
+        <p>
+            <label for="photo">Image actuelle:</label>
+            <img th:src="${film.photo != null and not #strings.isEmpty(film.photo) ? '/photos/' + film.photo : '/photos/no-image.jpg'}"
+                 alt="image actuelle du film" class="img-fluid rounded shadow me-2"  width="200" height="300" id="photo">
+
+            <label for="file">Nouvelle image (facultatif) :</label>
+            <input type="file" id="file" name="file" />
+        </p>
+        <p><input type="submit" class="btn btn-outline-primary" value="Modifier"></p>
+    </form>
+</div>
+</body>
+</html>

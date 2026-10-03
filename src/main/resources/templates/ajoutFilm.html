@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Ajouter un film</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-3">Saisir un nouveau Film</h1>
+    <form action="/film/add" method="post" enctype="multipart/form-data">
+        <p>
+            <label for="titre" class="form-label">Titre du film: </label>
+            <input type="text" name="titre" id="titre" class="form-control" required pattern="[A-ZÀ-Ÿ][a-zA-ZÀ-ÿ0-9\s]+" title="Le titre doit commencer par une majuscule">
+        </p>
+        <p>
+            <label for="description" class="form-label">Description: </label>
+            <textarea rows="5" class="form-control" name="description" id="description"></textarea>
+        </p>
+        <p>
+            <label for="annee" class="form-Label">Année parution: </label>
+            <input type="number" name="anneeparution" id="annee" class="form-control" min="1940" required th:max="${currentYear}" th:attr="title='L\'année doit être comprise entre 1940 et ' + ${currentYear}">
+        </p>
+        <p>
+            <label for="categorie" class="form-label">Categorie: </label>
+            <select name="categorie" class="form-select" id="categorie">
+                <option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.nom}"></option>
+            </select>
+        </p>
+        <p>
+            <label for="acteurs" class="form-label">Acteurs: </label>
+            <select name="acteurs" class="form-select" id="acteurs" multiple="multiple" required>
+                <option th:each="act: ${acteurs}" th:value="${act.id}" th:text="${act.nom + ' ' + act.prenom}"></option>
+            </select>
+        </p>
+        <p>
+            <label class="form-Label">Photos: </label>
+            <input type="file" name="file" accept="image/png, image/jpeg" class="form-control" />
+        </p>
+        <p><input type="submit" class="btn btn-outline-primary" value="Ajouter"></p>
+    </form>
+</div>
+</body>
+</html>

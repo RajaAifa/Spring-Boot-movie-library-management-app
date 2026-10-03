@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <th:block th:include="Thytemplate :: headerfiles"></th:block>
+    <meta charset="utf-8">
+    <title>Liste des acteurs</title>
+</head>
+<body>
+<div th:insert="Thytemplate :: header"></div>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Liste des acteurs</h1>
+    <table class="table table-hover">
+        <tr style="background-color: #cccccc;">
+            <th>#</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th colspan="2" style="text-align: center">ACTION</th>
+        </tr>
+        <tr th:each="a: ${acteurs}">
+            <td th:text="${a.id}"></td>
+            <td th:text="${a.nom}"></td>
+            <td th:text="${a.prenom}"></td>
+            <td class="text-center">
+                <form th:action="@{/acteur/delete/{id} (id=${a.id})}" th:method="delete">
+                    <input type="submit" value="Supprimer" class="btn btn-outline-danger" onclick="return confirm('Voulez vous vraiment supprimer cet acteur ?')">
+                </form>
+            </td>
+            <td class="text-center">
+                <a th:href="@{/acteur/update/{id} (id=${a.id})}" class="btn btn-outline-primary" >Modifier</a>
+            </td>
+        </tr>
+    </table>
+    <div class="d-flex justify-content-center">
+        <a href="http://localhost:8080/acteur/new" class="btn btn-success mt-5"> Ajouter un acteur</a>
+    </div>
+</div>
+
+</body>
+</html>
